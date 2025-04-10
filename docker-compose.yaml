@@ -1,3 +1,5 @@
+version: "3.9" # Certifique-se de especificar a versão do Compose
+
 services:
   db:
     image: "postgres:15"
@@ -7,10 +9,17 @@ services:
       POSTGRES_USER: docker
       POSTGRES_PASSWORD: docker
       POSTGRES_DB: api
-
+    networks:
+      - primeira_rede
 
   api:
     build:
       context: .
     ports:
-      - "3000:3000"       
+      - "3000:3000"
+    networks:
+      - primeira_rede
+
+networks:
+  primeira_rede:
+    driver: bridge
